@@ -1,4 +1,4 @@
 ## Portfolio Website
 
-not accssible at: 
+accssible at: 
 https://mehrdadmmz.github.io/
