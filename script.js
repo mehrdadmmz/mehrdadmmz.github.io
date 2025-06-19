@@ -10,7 +10,7 @@ function toggleMenu() {
   menu.classList.toggle("open");
   icon.classList.toggle("open");
 }
-=======
+
 window.addEventListener("load", () => {
   history.replaceState({}, "", window.location.pathname);
 });
@@ -21,4 +21,3 @@ function toggleMenu() {
   menu.classList.toggle("open");
   icon.classList.toggle("open");
 }
-
