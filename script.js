@@ -1,3 +1,5 @@
+// JS
+
 window.addEventListener("load", () => {
   history.replaceState({}, "", window.location.pathname);
 });
