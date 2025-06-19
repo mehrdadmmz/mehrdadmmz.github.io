@@ -528,3 +528,15 @@ h2,
   letter-spacing: 0.04em; /* ≈ 6 % of the font size */
   /* or use a fixed value like 2px if you prefer */
 }
+
+/* --- 2-column grid for project cards --- */
+#projects .about-containers {
+  flex-wrap: wrap; /* allow wrapping */
+  justify-content: center; /* keep it centred */
+  gap: 2rem; /* same spacing as before */
+}
+
+#projects .about-containers .details-container {
+  flex: 1 1 calc(50% - 2rem); /* each card ≈ 50 % width minus gap */
+  max-width: 400px; /* optional: prevents super-wide cards on 4K */
+}
