@@ -857,10 +857,87 @@ body::before {
   vertical-align: middle;
 }
 
-
 /* Phones & small tablets: stack the four Experience cards vertically */
 @media (max-width: 600px) {
   #experience .about-containers {
-    grid-template-columns: 1fr !important;   /* force one column */
+    grid-template-columns: 1fr !important; /* force one column */
   }
+}
+
+/* ════════════════════  GLOBAL GLOW PRESETS  ════════════════════ */
+:root {
+  --glow-colour: #3b82f6; /* ← main neon blue */
+  --glow-alpha: 0.6; /* ← 0‒1 brightness of the rim */
+}
+/* ============================================================== */
+
+/* ───────────── 1. Electric halo for boxes & buttons ───────────── */
+.details-container,
+.color-container,
+.contact-info-upper-container,
+.btn {
+  position: relative; /* anchor pseudo-element */
+  z-index: 0; /* keep normal stacking context */
+}
+
+/* halo layer */
+.details-container::before,
+.color-container::before,
+.contact-info-upper-container::before,
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* exact overlay */
+  border-radius: inherit;
+  padding: 2px; /* thickness of halo */
+  background: linear-gradient(
+    135deg,
+    rgba(var(--glow-colour-rgb, 59, 130, 246), 1) 0%,
+    rgba(var(--glow-colour-rgb, 59, 130, 246), 0.2) 60%,
+    transparent 100%
+  );
+  filter: blur(4px);
+  z-index: -1; /* sit behind the content */
+  /* clever masking trick: keeps glow ONLY on the rim */
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* convert --glow-colour to an RGB triple so we can reuse it */
+:root {
+  --glow-colour-rgb: 59, 130, 246; /* R,G,B of #3b82f6 */
+}
+@media (prefers-color-scheme: light) {
+  /* optional tweak: dim halo a bit in light mode */
+  :root {
+    --glow-alpha: 0.45;
+  }
+}
+
+/* ───────────── 2. Blue scan-line under each section title ───────────── */
+.title {
+  position: relative;
+  z-index: 0;
+}
+.title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.5rem; /* gap below text */
+  transform: translateX(-50%);
+  width: 280px; /* length of streak */
+  height: 3px;
+  background: radial-gradient(
+    ellipse farthest-side,
+    var(--glow-colour) 0%,
+    transparent 70%
+  );
+  box-shadow: 0 0 12px var(--glow-colour);
+  opacity: var(--glow-alpha);
+}
+
+/* ═════ 1. Hide the scan-line under the hero name ═════ */
+#profile .title::after {
+  display: none;
 }
