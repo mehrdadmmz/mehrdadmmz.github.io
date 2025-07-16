@@ -941,3 +941,23 @@ body::before {
 #profile .title::after {
   display: none;
 }
+
+/* === Center-aligned About section (no side image) === */
+#about .section-container {
+  flex-direction: column; /* stack vertically */
+  align-items: center; /* horizontal centering */
+  text-align: center; /* center text inside */
+  gap: 2rem; /* spacing between blocks */
+}
+
+/* make each inner card auto-width and centered */
+#about .details-container {
+  max-width: 720px; /* optional width limit */
+  margin-inline: auto; /* center in column */
+}
+
+/* === About-Me paragraph font size === */
+#about .text-container {
+  font-size: 1.2rem; /* 1rem = base (16 px). 1.1rem ≈ 17.6 px */
+  line-height: 1.6; /* optional: adjust spacing between lines */
+}
