@@ -529,14 +529,330 @@ h2,
   /* or use a fixed value like 2px if you prefer */
 }
 
-/* --- 2-column grid for project cards --- */
+/* ──────────────────────────────── THEME OVERRIDES ─────────────────────────── */
+
+/* Global background + text colour */
+body {
+  background: radial-gradient(circle at top, #202468 0%, #000000 75%);
+  color: #f2f3ff; /* default text */
+}
+
+/* Light-grey body copy */
+p,
+.section__text__p1,
+.section__text__p2 {
+  color: #c9cbe3;
+}
+
+/* Kill the old alternating backgrounds */
+section,
+section:nth-of-type(even) {
+  background: transparent;
+}
+
+/* Card-style containers (About, Experience boxes, Project cards) */
+.details-container,
+.color-container {
+  background: rgba(10, 14, 24, 0.65); /* translucent navy-black */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e9e9f0;
+}
+
+/* Project title text */
+.project-title {
+  color: #fafaff;
+}
+
+/* Generic buttons */
+.btn,
+.btn-color-1,
+.btn-color-2,
+.project-btn {
+  background: rgba(40, 50, 90, 0.85);
+  color: #f2f3ff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.btn:hover,
+.btn-color-1:hover,
+.btn-color-2:hover,
+.project-btn:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* Navigation / links */
+.logo,
+a,
+.nav-links a {
+  color: #f2f3ff;
+}
+a:hover {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+}
+
+/* Optional: subtle white shadow on images so they pop on dark bg */
+.project-img,
+.about-pic,
+.section__pic-container img {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* You can tweak anything else (fonts, shadows, etc.) here */
+
+/* ────── tiny follow-up tweaks ────────────────────────────────────────── */
+
+/* 1 ▸ Make profile & about pics perfect circles, no frame / shadow */
+.section__pic-container img,
+.about-pic {
+  border-radius: 50%; /* circular crop */
+  box-shadow: none; /* kill the soft shadow I added before */
+  border: none; /* ensure no stray borders */
+  object-fit: cover; /* keep aspect-ratio while filling circle */
+}
+
+/* 2 ▸ Bottom-of-page contact links in black */
+#contact a {
+  color: #000000;
+}
+#contact a:hover {
+  color: #222222;
+  text-decoration-color: #222222;
+}
+
+/* ───── Project grid: 3-cols on desktop, wraps on small screens ───── */
+
 #projects .about-containers {
-  flex-wrap: wrap; /* allow wrapping */
-  justify-content: center; /* keep it centred */
+  flex-wrap: wrap; /* allow a second row */
+  justify-content: center;
+}
+
+#projects .details-container {
+  flex: 1 1 calc(33.333% - 2rem); /* three equal columns minus the gap */
+  max-width: 350px; /* optional hard cap if you like */
+}
+
+/* ───── Experience section: 2 × 2 grid instead of one long row ───── */
+#experience .about-containers {
+  display: grid; /* swap flex → grid */
+  grid-template-columns: repeat(2, 1fr); /* two equal-width columns */
   gap: 2rem; /* same spacing as before */
 }
 
-#projects .about-containers .details-container {
-  flex: 1 1 calc(50% - 2rem); /* each card ≈ 50 % width minus gap */
-  max-width: 400px; /* optional: prevents super-wide cards on 4K */
+/* make each card fill its grid cell */
+#experience .details-container {
+  flex: unset; /* cancel old flex sizing */
+  width: 100%; /* take full cell width */
+}
+
+/* optional: on small screens stack to single column */
+@media screen and (max-width: 700px) {
+  #experience .about-containers {
+    grid-template-columns: 1fr; /* one card per row */
+  }
+}
+
+/* ───── Experience cards: hide proficiency tags + shrink box size ───── */
+
+/* 1 ▸ Remove the little level labels */
+#experience article p {
+  display: none; /* keeps markup intact, hides text */
+}
+
+/* 2 ▸ Make each card slimmer */
+#experience .details-container {
+  padding: 1rem 1.25rem; /* was 1.5rem all around */
+}
+#experience .experience-sub-title {
+  font-size: 1.5rem; /* was 1.75rem */
+  margin-bottom: 1.25rem; /* tighten spacing */
+}
+#experience .article-container {
+  gap: 1.25rem; /* was 2.5rem */
+}
+article {
+  width: 8rem; /* was 10rem – trims horizontal bulk */
+}
+
+/* ───── Restore original card sizing + roomy 2×2 layout ───── */
+
+/* Use a neat 2 × 2 grid with generous row/col gaps */
+#experience .about-containers {
+  display: grid; /* switch from flex → grid  */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 2rem; /* 3 rem rows, 2 rem cols   */
+}
+
+/* Card dimensions back to the initial look */
+#experience .details-container {
+  padding: 1rem; /* original padding         */
+  width: 95%; /* fill its grid cell       */
+}
+
+/* Section heading inside each card */
+#experience .experience-sub-title {
+  font-size: 1.5rem; /* original size            */
+  margin-bottom: 2rem; /* original spacing         */
+}
+
+/* Skill list layout */
+#experience .article-container {
+  gap: 2.2rem; /* original gap             */
+}
+
+#experience article {
+  width: 10rem; /* original width           */
+}
+
+/* Keep proficiency tags hidden */
+#experience article p {
+  display: none;
+}
+
+/* Devicon sizing + alignment */
+#experience article i {
+  font-size: 2.2rem; /* icon size */
+  margin-right: 0.4rem; /* gap before text */
+  line-height: 1; /* vertical centering */
+}
+
+/* Uniform sizing / alignment for SVG logos */
+.skill-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+/* keep each skill row tidy */
+.article-container article {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* make sure arrows sit on top and feel clickable */
+.arrow-link {
+  display: inline-block; /* keeps layout identical */
+}
+
+.arrow {
+  cursor: pointer;
+  z-index: 100; /* higher than cards / grids */
+  transition: transform 0.2s;
+}
+
+.arrow-link:hover .arrow {
+  transform: translateY(4px); /* subtle nudge on hover */
+}
+
+/* ───────────────────────────  GLOBAL HERO BACKGROUND  ────────────────────────── */
+/* 1) Static dot grid (behind everything) */
+body {
+  background-color: #000; /* deep black */
+  background-image: radial-gradient(
+    rgba(59, 130, 246, 0.12) 1px,
+    /* tiny blue dot (#3b82f6 @ 12 % ) */ transparent 1px
+  );
+  background-size: 18px 18px; /* dot spacing */
+  position: relative; /* anchor ::before */
+  overflow-x: hidden; /* avoid scrollbars during anim */
+}
+
+/* 2) Animated spotlight that glides across the dots */
+body::before {
+  content: "";
+  position: fixed; /* stays put on viewport, even when you scroll */
+  inset: -40vmax; /* oversize so the gradient never shows edges */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.1) 0%,
+    /* bright center */ rgba(0, 0, 0, 0) 70%
+  ); /* fade out to transparent */
+  mix-blend-mode: screen; /* blends lightening-only, keeping dots visible */
+  pointer-events: none; /* let clicks through */
+  animation: moveSpot 20s ease-in-out infinite alternate;
+  z-index: -1; /* stay behind every real element */
+}
+
+@keyframes moveSpot {
+  0% {
+    transform: translate(-25%, -25%) rotate(0deg);
+  }
+  50% {
+    transform: translate(10%, -35%) rotate(45deg);
+  }
+  100% {
+    transform: translate(25%, 20%) rotate(90deg);
+  }
+}
+
+/* ───────────── unify card colour with Download-CV button ───────────── */
+.details-container,
+.color-container,
+.contact-info-upper-container {
+  background: rgba(21, 26, 47, 0.85); /* same as .btn background */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* subtle outline */
+  color: #f2f3ff; /* light text inside boxes */
+}
+
+/* update normal body copy inside dark boxes */
+.details-container p,
+.details-container h3,
+.contact-info-container a,
+.contact-info-container p {
+  color: #f2f3ff;
+}
+
+/* ───────────── vibrant accent for the small buttons ───────────── */
+.project-btn {
+  /* GitHub / Paper etc. */
+  background: #233b6fff; /* Tailwind ‘blue-600’ – looks great on dark */
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+.project-btn:hover {
+  background: #ffffff;
+  color: #000000;
+}
+
+/* keep big hero buttons unchanged (Download CV, Contact Info) */
+/* …they still use rgba(40,50,90,0.85) from your earlier rule */
+
+/* ───────────── email + LinkedIn strip colour sync ───────────── */
+#contact a {
+  color: #f2f3ff; /* white links on the new panel colour */
+}
+#contact a:hover {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+}
+
+/* ─── playful hover wiggle for skill icons ─── */
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(6deg) translateY(-1px);
+  }
+  50% {
+    transform: rotate(-6deg) translateY(1px);
+  }
+  75% {
+    transform: rotate(3deg) translateY(-1px);
+  }
+}
+
+.skill-icon:hover {
+  animation: wiggle 0.4s ease-in-out;
+}
+
+.flag {
+  width: 20px; /* tweak size */
+  height: auto;
+  margin-right: 4px; /* little gap before “British Columbia” */
+  vertical-align: middle;
 }
