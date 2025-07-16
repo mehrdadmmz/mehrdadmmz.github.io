@@ -752,7 +752,7 @@ article {
 body {
   background-color: #000; /* deep black */
   background-image: radial-gradient(
-    rgba(59, 130, 246, 0.12) 1px,
+    rgba(59, 130, 246, 0.2) 1px,
     /* tiny blue dot (#3b82f6 @ 12 % ) */ transparent 1px
   );
   background-size: 18px 18px; /* dot spacing */
@@ -767,7 +767,7 @@ body::before {
   inset: -40vmax; /* oversize so the gradient never shows edges */
   background: radial-gradient(
     ellipse at center,
-    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.15) 0%,
     /* bright center */ rgba(0, 0, 0, 0) 70%
   ); /* fade out to transparent */
   mix-blend-mode: screen; /* blends lightening-only, keeping dots visible */
