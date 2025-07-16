@@ -969,3 +969,22 @@ body::before {
 .btn-download:hover {
   text-decoration: none;
 }
+
+/* ══════════   XL desktop tightening   ( ≥ 1540 px wide )  ══════════ */
+@media (min-width: 1540px) {
+
+  /* Let most sections size themselves naturally instead of 96 vh */
+  section:not(#profile) {        /* keep hero tall, shrink rest */
+    height: auto;                /* remove forced 96 vh */
+    padding-top: 6rem;           /* a bit more breathing room */
+    padding-bottom: 6rem;        /*   ”    ”    ”    ”       */
+  }
+
+  /* Optional: limit content width so lines don’t get too long */
+  .section-container,
+  .experience-details-container,
+  .contact-info-upper-container {
+    max-width: 1400px;           /* tweak to taste */
+    margin-inline: auto;
+  }
+}
