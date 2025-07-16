@@ -961,3 +961,11 @@ body::before {
   font-size: 1.2rem; /* 1rem = base (16 px). 1.1rem ≈ 17.6 px */
   line-height: 1.6; /* optional: adjust spacing between lines */
 }
+
+/* Disable underline on hero anchor‐buttons */
+.btn-contact,
+.btn-contact:hover,
+.btn-download,
+.btn-download:hover {
+  text-decoration: none;
+}
