@@ -856,3 +856,11 @@ body::before {
   margin-right: 4px; /* little gap before “British Columbia” */
   vertical-align: middle;
 }
+
+
+/* Phones & small tablets: stack the four Experience cards vertically */
+@media (max-width: 600px) {
+  #experience .about-containers {
+    grid-template-columns: 1fr !important;   /* force one column */
+  }
+}
