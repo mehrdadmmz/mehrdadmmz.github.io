@@ -972,19 +972,79 @@ body::before {
 
 /* ══════════   XL desktop tightening   ( ≥ 1540 px wide )  ══════════ */
 @media (min-width: 1540px) {
-
   /* Let most sections size themselves naturally instead of 96 vh */
-  section:not(#profile) {        /* keep hero tall, shrink rest */
-    height: auto;                /* remove forced 96 vh */
-    padding-top: 6rem;           /* a bit more breathing room */
-    padding-bottom: 6rem;        /*   ”    ”    ”    ”       */
+  section:not(#profile) {
+    /* keep hero tall, shrink rest */
+    height: auto; /* remove forced 96 vh */
+    padding-top: 6rem; /* a bit more breathing room */
+    padding-bottom: 6rem; /*   ”    ”    ”    ”       */
   }
 
   /* Optional: limit content width so lines don’t get too long */
   .section-container,
   .experience-details-container,
   .contact-info-upper-container {
-    max-width: 1400px;           /* tweak to taste */
+    max-width: 1400px; /* tweak to taste */
     margin-inline: auto;
   }
+}
+
+/* ───── Info-icon & tooltip ───── */
+.info-wrap {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 3;
+}
+
+.info-icon {
+  display: inline-block;
+  width: 1.4rem;
+  height: 1.4rem;
+  line-height: 1.4rem;
+  text-align: center;
+  border-radius: 50%;
+  background: #2563eb; /* blue circle */
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* tooltip bubble */
+.tooltip {
+  position: absolute;
+  top: 2.2rem;
+  left: 0;
+  min-width: 220px;
+  max-width: 260px;
+  padding: 0.9rem 1rem;
+  background: rgba(17, 24, 39, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  color: #f2f3ff;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: scale(0.7);
+  transform-origin: top left;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 4;
+}
+
+/* show tooltip on hover */
+.info-wrap:hover .tooltip {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* tech-stack icons */
+.tech-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-right: 0.25rem;
+  vertical-align: middle;
+  object-fit: contain;
 }
