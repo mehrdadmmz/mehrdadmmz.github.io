@@ -5,16 +5,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>It's MMZ here!</title>
+
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="mediaqueries.css" />
     <link rel="icon" type="image/png" href="./assets/favicon-mmz.png" />
+
     <!-- Devicon icon font -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
     />
   </head>
+
   <body>
+    <video id="hero-bg" class="hero-bg" autoplay muted loop playsinline>
+      <source src="./assets/neon-road.mp4" type="video/mp4" />
+    </video>
+    <!-- ■■■■■■■■■■■■■■■■■ PRE-LOADER OVERLAY ■■■■■■■■■■■■■■■■■ -->
+    <div id="preloader" class="preloader">
+      <ul id="load-steps" class="load-steps">
+        <li>// SPINNING UP PIXEL MAGIC...</li>
+        <li>// UNLOCKING CODE VAULTS...</li>
+        <li>// TUNING THE INNOVATION ENGINE...</li>
+        <li>// POLISHING SIDE-PROJECT GEMS...</li>
+        <li>// ALIGNING STARS & SKILL SETS...</li>
+        <li>// READY FOR LIFTOFF—ENJOY THE RIDE...</li>
+      </ul>
+
+      <div id="load-percent" class="load-percent">0&nbsp;%</div>
+
+      <p class="load-caption">
+        WELCOME ABOARD! YOUR CUSTOM EXPERIENCE IS BOOTING ⏳<br />
+        GRAB A ☕ WHILE WE SPIN UP THE MAGIC. CRAFTED WITH CARE FOR RECRUITERS
+        AND FRIENDS
+      </p>
+    </div>
+
+    <!-- ■■■■■■■■■■■■■■■■■ WELCOME SPLASH ■■■■■■■■■■■■■■■■■ -->
+    <div id="welcome-splash" class="welcome-splash hidden">
+      <h1>HELLO, I’M MEHRDAD! WELCOME TO MY SITE!</h1>
+    </div>
+
+    <!-- ■■■■■■■■■■■■■■■■■ MAIN SITE (unchanged) ■■■■■■■■■■■■■■■■■ -->
     <nav id="desktop-nav">
       <div class="logo">Mehrdad</div>
       <div>
@@ -26,13 +65,12 @@
         </ul>
       </div>
     </nav>
+
     <nav id="hamburger-nav">
       <div class="logo">Mehrdad Momeni Zadeh</div>
       <div class="hamburger-menu">
         <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span><span></span><span></span>
         </div>
         <div class="menu-links">
           <li><a href="#about" onclick="toggleMenu()">About</a></li>
@@ -158,11 +196,11 @@
               apps with Spring Boot, JPA, and a slim React front end. He still
               enjoys the low-level thrill of C++ and likes spinning up
               cloud-friendly microservices in Go. <br /><br />
-              Away from the keyboard you’ll catch him hiking coastal trails,
-              playing soccer, lifting at the gym, knocking out Rubik’s cubes, or
-              reading (right now it’s The Mountain Is You). If a project mixes
-              algorithms with real-world impact, chances are he’s already
-              sketching ideas for it on the nearest whiteboard.
+              Away from the keyboard you’ll catch him hiking coastal trails 🥾,
+              playing soccer ⚽️, lifting at the gym 🏋🏻, knocking out Rubik’s
+              cubes, or reading (right now it’s The Mountain Is You). If a
+              project mixes algorithms with real-world impact, chances are he’s
+              already sketching ideas for it on the nearest whiteboard.
             </p>
           </div>
         </div>
@@ -214,9 +252,8 @@
               />
             </div>
             <h2 class="experience-sub-title project-title">
-              Self-Driving Cars Game 
-            <i class="devicon-python-plain"></i>
-          
+              Self-Driving Cars Game
+              <i class="devicon-python-plain"></i>
             </h2>
             <div class="btn-container">
               <button
@@ -265,9 +302,10 @@
                 class="project-img"
               />
             </div>
-            <h2 class="experience-sub-title project-title">PDE Transformers 
-            <i class="devicon-python-plain"></i>
-          </h2>
+            <h2 class="experience-sub-title project-title">
+              PDE Transformers
+              <i class="devicon-python-plain"></i>
+            </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
@@ -335,9 +373,10 @@
                 class="project-img"
               />
             </div>
-            <h2 class="experience-sub-title project-title">GO Microservices 
-            <i class="devicon-go-plain"></i>
-          </h2>
+            <h2 class="experience-sub-title project-title">
+              GO Microservices
+              <i class="devicon-go-plain"></i>
+            </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
@@ -374,9 +413,10 @@
                 class="project-img"
               />
             </div>
-            <h2 class="experience-sub-title project-title">Galactic Blitz 
-            <i class="devicon-cplusplus-plain"></i>
-          </h2>
+            <h2 class="experience-sub-title project-title">
+              Galactic Blitz
+              <i class="devicon-cplusplus-plain"></i>
+            </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
@@ -443,9 +483,10 @@
                 class="project-img"
               />
             </div>
-            <h2 class="experience-sub-title project-title">EZ Stickers 
-            <i class="devicon-java-plain-wordmark"></i>
-          </h2>
+            <h2 class="experience-sub-title project-title">
+              EZ Stickers
+              <i class="devicon-java-plain-wordmark"></i>
+            </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
@@ -546,9 +587,10 @@
                 class="project-img"
               />
             </div>
-            <h2 class="experience-sub-title project-title">GoEventify 
-            <i class="devicon-go-plain"></i>
-          </h2>
+            <h2 class="experience-sub-title project-title">
+              GoEventify
+              <i class="devicon-go-plain"></i>
+            </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
@@ -593,9 +635,8 @@
               />
             </div>
             <h2 class="experience-sub-title project-title">
-              CNN-Driven Twitch Rage Detector 
-            <i class="devicon-python-plain"></i>
-          
+              CNN-Driven Twitch Rage Detector
+              <i class="devicon-python-plain"></i>
             </h2>
             <div class="btn-container">
               <button
@@ -628,9 +669,10 @@
                 class="project-img"
               />
             </div>
-            <h2 class="experience-sub-title project-title">ClipLogger
-            <i class="devicon-python-plain"></i>
-          </h2>
+            <h2 class="experience-sub-title project-title">
+              ClipLogger
+              <i class="devicon-python-plain"></i>
+            </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
@@ -667,9 +709,8 @@
               />
             </div>
             <h2 class="experience-sub-title project-title">
-              Socket Programming 
-            <i class="devicon-python-plain"></i>
-          
+              Socket Programming
+              <i class="devicon-python-plain"></i>
             </h2>
             <div class="btn-container">
               <button
@@ -717,9 +758,10 @@
                 class="project-img"
               />
             </div>
-            <h2 class="experience-sub-title project-title">FitPalette 
-            <i class="devicon-javascript-plain"></i>
-          </h2>
+            <h2 class="experience-sub-title project-title">
+              FitPalette
+              <i class="devicon-javascript-plain"></i>
+            </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
@@ -763,9 +805,8 @@
               />
             </div>
             <h2 class="experience-sub-title project-title">
-              Graph Neural Network (Cora) 
-            <i class="devicon-python-plain"></i>
-          
+              Graph Neural Network (Cora)
+              <i class="devicon-python-plain"></i>
             </h2>
             <div class="btn-container">
               <button
@@ -845,19 +886,19 @@
               </article>
               <article>
                 <img
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
-                  alt="CSS"
-                  class="skill-icon"
-                />
-                <h3>CSS</h3>
-              </article>
-              <article>
-                <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg"
                   alt="Kotlin"
                   class="skill-icon"
                 />
                 <h3>Kotlin</h3>
+              </article>
+              <article>
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/hibernate/hibernate-original.svg"
+                  alt="Hibernate"
+                  class="skill-icon"
+                />
+                <h3>Hibernate</h3>
               </article>
             </div>
           </div>
@@ -876,14 +917,6 @@
               </article>
               <article>
                 <img
-                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
-                  alt="scikit-learn"
-                  class="skill-icon"
-                />
-                <h3>scikit-learn</h3>
-              </article>
-              <article>
-                <img
                   src="./assets/wandb.png"
                   alt="Weights & Biases"
                   class="skill-icon"
@@ -891,12 +924,21 @@
                 <h3>WandB</h3>
               </article>
               <article>
-                <img src="./assets/hydra.png" alt="Hydra" class="skill-icon" />
-                <h3>Hydra</h3>
-              </article>
-              <article>
                 <img src="./assets/jax.png" alt="JAX" class="skill-icon" />
                 <h3>JAX</h3>
+              </article>
+              <article>
+                <img
+                  src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/scikitlearn/scikitlearn-original.svg"
+                  alt="scikit-learn"
+                  class="skill-icon"
+                />
+                <h3>scikit-learn</h3>
+              </article>
+
+              <article>
+                <img src="./assets/hydra.png" alt="Hydra" class="skill-icon" />
+                <h3>Hydra</h3>
               </article>
               <article>
                 <img
