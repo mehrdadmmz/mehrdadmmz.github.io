@@ -15,10 +15,6 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 p {
   color: rgb(85, 85, 85);
 }
@@ -1047,4 +1043,362 @@ body::before {
   margin-right: 0.25rem;
   vertical-align: middle;
   object-fit: contain;
+}
+
+/* ═════════════════════  GLOBAL FONT OVERRIDE  ═════════════════════ */
+body,
+button,
+input,
+select,
+textarea {
+  font-family: "Space Mono", monospace;
+}
+
+/* ═════════════════════  PRE-LOADER OVERLAY  ═════════════════════ */
+.preloader {
+  position: fixed;
+  inset: 0; /* full-screen */
+  background: #000; /* match site bg */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999; /* sit above everything */
+  pointer-events: none; /* block clicks but no hover */
+  transition: opacity 0.4s ease;
+}
+
+/* fade helper (added via JS) */
+.preloader.fade-out,
+.welcome-splash.fade-out {
+  opacity: 0;
+}
+
+/* list of steps */
+.load-steps {
+  list-style: none;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.load-steps li {
+  opacity: 0.25;
+  padding: 0.1rem 0.8rem;
+  border-radius: 4px;
+  transition: opacity 0.3s, box-shadow 0.3s;
+}
+
+.load-steps li.active {
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 12px #3b82f6;
+}
+
+/* centred percent read-out */
+.load-percent {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.1em;
+}
+
+/* caption paragraph */
+.load-caption {
+  max-width: 480px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.8;
+  padding: 0 1rem;
+}
+
+/* ═════════════════════  WELCOME SPLASH  ═════════════════════ */
+.welcome-splash {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998; /* just under preloader */
+  transition: opacity 0.4s ease;
+}
+
+.welcome-splash.hidden {
+  display: none;
+}
+
+.welcome-splash h1 {
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  text-align: center;
+  letter-spacing: 0.08em;
+  padding: 0 1rem;
+}
+
+/* ═════════════════════  UTILITY  ═════════════════════ */
+.hidden {
+  display: none;
+}
+
+/* ═════════════════════  MOVING-ROAD VIDEO  ═════════════════════ */
+.hero-bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0; /* behind overlays & content */
+  pointer-events: none; /* never blocks clicks */
+  mix-blend-mode: screen; /* lets your dot-grid shimmer through */
+  opacity: 0.75; /* adjust to taste (0–1) */
+}
+
+/* ensure main content sits above the video */
+nav,
+section,
+footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* 1 ▸ MATCH MAIN BG ON PRE-LOADER -------------------------------- */
+.preloader {
+  /* keep existing layout props … */
+  background-color: #000;
+  /* blue “pixel” dots */
+  background-image: radial-gradient(
+    rgba(59, 130, 246, 0.2) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+  overflow: hidden; /* so the glow stays inside */
+}
+.preloader::before {
+  /* moving light-beam */
+  content: "";
+  position: absolute;
+  inset: -40vmax;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  animation: moveSpot 20s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+/* keep all overlay text above the beam */
+.preloader > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 2 ▸ CONSISTENT HERO BUTTON SIZING ------------------------------- */
+.btn {
+  display: inline-block; /* so anchors obey width / padding */
+  width: 8rem; /* same width for all variants    */
+}
+
+/* 3 ▸ GRADIENT HERO NAME ----------------------------------------- */
+#profile .title {
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #6366f1 25%,
+    #a855f7 50%,
+    #ec4899 75%,
+    #f97316 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback */
+}
+
+/* ───── Rainbow sweep for ALL section titles ───── */
+.title {
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #6366f1 25%,
+    #a855f7 50%,
+    #ec4899 75%,
+    #f97316 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback for older browsers */
+}
+
+/* keep the scan-line we already had */
+.title::after {
+  /* existing underline rules stay the same */
+}
+
+/* optional: if you *still* want to hide the scan-line on the hero only */
+#profile .title::after {
+  display: none;
+}
+
+/* ───────────── 1 ▸ Rainbow text for the highlighted load-step ───────────── */
+.load-steps li.active {
+  /* keep your blue glow box-shadow – we’re only changing text colour */
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #6366f1 25%,
+    #a855f7 50%,
+    #ec4899 75%,
+    #f97316 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback */
+}
+
+/* Optional: dim the inactive lines a bit more so the rainbow pops */
+.load-steps li {
+  opacity: 0.15; /* was 0.25 */
+}
+.load-steps li.active {
+  opacity: 1;
+}
+
+/* ───────────── 2 ▸ Bigger “WELCOME…” caption after loading ───────────── */
+.load-caption {
+  font-size: clamp(1.4rem, 3vw, 2rem); /* responsive 22 → 32 px */
+  line-height: 1.5;
+  max-width: 640px; /* let it breathe */
+}
+
+/* ───────────── 3 ▸ (optional) Beef up the welcome splash too ───────────── */
+.welcome-splash h1 {
+  font-size: clamp(2rem, 6vw, 3.6rem); /* 32 → 57 px */
+}
+
+/* ─── Profile-pic wiggle on hover ─── */
+@keyframes profileWiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(4deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  60% {
+    transform: rotate(3deg);
+  }
+  80% {
+    transform: rotate(-3deg);
+  }
+}
+
+.section__pic-container img:hover {
+  animation: profileWiggle 0.45s ease-in-out;
+  /* feel free to tweak duration / angles above */
+}
+
+/* ─────────── Uniform “Download CV” & “Contact Info” buttons ─────────── */
+.btn-download,            /* the <button> element */
+.btn-contact {
+  /* the <a> element next to it  */
+  display: inline-flex; /* let width/padding apply to both */
+  justify-content: center;
+  align-items: center;
+  width: 9rem; /* identical width (tweak to taste) */
+  padding: 1rem; /* identical padding */
+  font-size: 1rem; /* identical text size */
+  line-height: 1; /* keep text vertically centred */
+}
+
+/* ── Uniform thickness for pre-loader captions ── */
+.load-caption {
+  font-weight: 500; /* bold for BOTH the initial & welcome texts */
+}
+
+/* ───────────  Mobile-nav polish  ─────────── */
+
+/* 1 ▸ white lines for both hamburger & “X” */
+.hamburger-icon span,
+.hamburger-icon.open span {
+  /* keep colour in open state */
+  background-color: #ffffff;
+}
+
+/* 2 ▸ raise the whole menu above other content */
+.hamburger-menu {
+  z-index: 1000; /* higher than pic & cards */
+}
+
+/* 3 ▸ style the slide-down panel */
+.menu-links {
+  background: rgba(40, 50, 90, 0.95); /* match hero button colour */
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+  z-index: 1001; /* just to be safe */
+}
+
+/* 4 ▸ white link text + consistent hover */
+.menu-links a {
+  color: #ffffff;
+}
+.menu-links a:hover {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+}
+
+/* ─── Hide mobile-nav panel until it’s actually open ─── */
+.menu-links {
+  /* already has max-height:0 + overflow:hidden */
+  padding: 0; /* no blue background space */
+  opacity: 0; /* fully transparent        */
+  visibility: hidden; /* ignore clicks / hovers   */
+  transform: translateY(-8px); /* tiny upward offset for smoother slide-in */
+  transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease,
+    transform 0.3s ease;
+}
+
+.menu-links.open {
+  padding: 0.75rem 1.25rem; /* your nice rounded box */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  max-height: 400px; /* whatever you like     */
+}
+
+/* ───── Multicolour sweep on every .title, even short words ───── */
+.title {
+  /* same five-stop rainbow */
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    /* blue  */ #6366f1 12%,
+    /* indigo*/ #a855f7 33%,
+    /* violet*/ #ec4899 66%,
+    /* pink  */ #f97316 100% /* orange*/
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* fallback */
+
+  /* stretch the paint & animate a gentle drift */
+  background-size: 350% 100%; /* 3.5× wider than the text */
+  animation: titleShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes titleShift {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
