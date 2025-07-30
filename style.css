@@ -1402,3 +1402,10 @@ footer {
     background-position: 100% 0;
   }
 }
+
+/* ─── Centre the final Experience card ─── */
+#experience .about-containers .details-container:last-child {
+  grid-column: 1 / -1; /* take the full row (column-1 through last) */
+  justify-self: center; /* align it horizontally in the row          */
+  max-width: 640px; /* optional: cap width so it doesn’t stretch */
+}
