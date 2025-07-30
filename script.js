@@ -44,7 +44,7 @@ function runPreloader() {
       clearInterval(timer);
       finishPreloader();
     }
-  }, 70); // 70 ms × 100 ≈ 7 s
+  }, 55); // 55 ms × 100 ≈ 5.5 s
 
   /* STEP 2 ▸ show welcome text, then fade overlay */
   function finishPreloader() {
