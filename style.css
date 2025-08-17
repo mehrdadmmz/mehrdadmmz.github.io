@@ -1419,3 +1419,62 @@ footer {
 .article-container h3 {
   font-size: 1rem; /* adjust to taste or remove if unnecessary */
 }
+
+/* ─────── logo + favicon side-by-side ─────── */
+.logo {
+  display: inline-flex; /* logo icon + text in one row  */
+  align-items: center; /* vertical alignment            */
+  gap: 0.55rem; /* space between icon & text     */
+  font-size: 2rem; /* keeps your existing size      */
+  font-weight: 700; /* optional: bolder for clarity  */
+  text-decoration: none; /* in case it’s an <a> element   */
+  color: inherit; /* inherit the neon/white colour */
+}
+
+.logo img {
+  width: 28px; /* tweak size to taste           */
+  height: 28px;
+  flex-shrink: 0; /* never let it compress         */
+  border-radius: 4px; /* optional: soften sharp edges  */
+}
+
+/* keep hover effect consistent (optional) */
+.logo:hover {
+  cursor: default; /* or pointer if you prefer      */
+  text-decoration: none;
+}
+
+/* Ensure each project card is its own positioning context */
+#projects .details-container {
+  position: relative;
+  overflow: visible; /* make sure nothing clips the buttons */
+}
+
+/* Keep the info badge anchored to its own card,
+   but *under* the buttons so it can't cover them */
+#projects .info-wrap {
+  position: absolute; /* already set, but now relative to the card */
+  z-index: 2;
+}
+
+/* Tooltip can show, but never block clicks on buttons */
+#projects .tooltip {
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Put the button row above everything in the card */
+#projects .btn-container {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap; /* if the row gets tight, wrap cleanly */
+  gap: 10px;
+}
+
+/* Make sure buttons actually render as boxes */
+#projects .btn.project-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
