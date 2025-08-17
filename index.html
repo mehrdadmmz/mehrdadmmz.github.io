@@ -55,31 +55,40 @@
 
     <!-- ■■■■■■■■■■■■■■■■■ MAIN SITE (unchanged) ■■■■■■■■■■■■■■■■■ -->
     <nav id="desktop-nav">
-      <div class="logo">Mehrdad</div>
-      <div>
-        <ul class="nav-links">
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </nav>
+      <a href="#profile" class="logo">
+        <img src="./assets/favicon-mmz.png" alt="MMZ favicon" />
+        <span>Mehrdad</span>
+      </a>
 
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
     <nav id="hamburger-nav">
-      <div class="logo">Mehrdad Momeni Zadeh</div>
+      <!-- logo (favicon + full name) -->
+      <a href="#profile" class="logo">
+        <img src="./assets/favicon-mmz.png" alt="MMZ favicon" />
+        <span>Mehrdad</span>
+      </a>
+
+      <!-- hamburger icon + slide-down links -->
       <div class="hamburger-menu">
         <div class="hamburger-icon" onclick="toggleMenu()">
           <span></span><span></span><span></span>
         </div>
-        <div class="menu-links">
+
+        <ul class="menu-links">
           <li><a href="#about" onclick="toggleMenu()">About</a></li>
           <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
           <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
           <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
+        </ul>
       </div>
     </nav>
+
     <section id="profile">
       <div class="section__pic-container">
         <img
@@ -91,7 +100,7 @@
       <div class="section__text">
         <p class="section__text__p1">Hello, I'm</p>
         <h1 class="title">Mehrdad Momeni Zadeh</h1>
-        <p class="section__text__p2">Full-Stack Software Developer</p>
+        <p class="section__text__p2">Software Developer</p>
 
         <div class="btn-container">
           <button
@@ -218,7 +227,7 @@
     <!-- ▬▬▬▬▬▬▬▬▬▬▬▬▬▬   EXPERIENCE SECTION   ▬▬▬▬▬▬▬▬▬▬▬▬▬▬ -->
     <section id="experience">
       <p class="section__text__p1">Explore My</p>
-      <h1 class="title">Experience</h1>
+      <h1 class="title">Technical Skills</h1>
 
       <div class="experience-details-container">
         <div class="about-containers">
@@ -1026,7 +1035,11 @@
             <div class="info-wrap">
               <span class="info-icon">ℹ</span>
               <div class="tooltip">
-                Multiplayer socket game in Python.<br /><br />
+                Multiplayer socket game in Python. Treasure Grid is a
+                multiplayer Mines-style game built with Python. Players race to
+                uncover a grid filled with bombs and treasure, aiming to score
+                the highest points in 60 seconds.
+                <br /><br />
                 <img
                   src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
                   class="tech-icon"
@@ -1042,21 +1055,27 @@
 
             <div class="article-container">
               <img
-                src="./assets/project8.png"
-                alt="Socket Programming Game"
+                src="./assets/Treasure.png"
+                alt="Treasure Grid"
                 class="project-img"
               />
             </div>
             <h2 class="experience-sub-title project-title">
-              Socket Programming
+              Treasure Grid
               <i class="devicon-python-plain"></i>
             </h2>
             <div class="btn-container">
               <button
                 class="btn project-btn"
-                onclick="location.href='https://github.com/mehrdadmmz/Socket-371'"
+                onclick="location.href='https://github.com/mehrdadmmz/Treasure-Grid'"
               >
                 GitHub
+              </button>
+              <button
+                class="btn project-btn"
+                onclick="window.open('https://www.youtube.com/watch?v=4qnnN0msCEo')"
+              >
+                Demo Video
               </button>
             </div>
           </div>
