@@ -4,6 +4,28 @@ window.addEventListener("load", () => {
   history.replaceState({}, "", window.location.pathname);
 
   runPreloader();
+
+  /* ───────── Force all buttons that navigate to open in a new tab ───────── */
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((btn) => {
+    const inline = btn.getAttribute("onclick");
+    if (!inline) return;
+
+    // Try to extract a URL from common inline patterns
+    // Pattern 1: location.href='URL'
+    let m = inline.match(/location\.href=['"]([^'"]+)['"]/);
+    // Pattern 2: window.open('URL' ...)
+    if (!m) m = inline.match(/window\.open\(['"]([^'"]+)['"]/);
+    if (!m) return; // nothing recognizable
+
+    const url = m[1];
+    // Remove original inline handler to avoid same‑tab nav
+    btn.removeAttribute("onclick");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  });
 });
 
 /* ─────────────────────────  BURGER MENU  ───────────────────────── */
@@ -44,7 +66,7 @@ function runPreloader() {
       clearInterval(timer);
       finishPreloader();
     }
-  }, 55); // 55 ms × 100 ≈ 5.5 s
+  }, 35); // 55 ms × 100 ≈ 5.5 s
 
   /* STEP 2 ▸ show welcome text, then fade overlay */
   function finishPreloader() {
