@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
     if (!m) return; // nothing recognizable
 
     const url = m[1];
-    // Remove original inline handler to avoid same‑tab nav
+    // Remove original inline handler to avoid same-tab nav
     btn.removeAttribute("onclick");
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -42,9 +42,10 @@ function runPreloader() {
   const preloader = document.getElementById("preloader");
   const steps = Array.from(document.querySelectorAll("#load-steps li"));
   const percentEl = document.getElementById("load-percent");
-  const captionEl = document.querySelector(".load-caption");
+  const captionEl = document.querySelector(".load-caption"); // kept, but not overwritten
 
-  if (!preloader || !percentEl || !captionEl) return; // markup missing
+  // captionEl is optional now — don't require it to exist
+  if (!preloader || !percentEl) return; // markup missing
 
   /* freeze scrolling while overlay is up */
   document.documentElement.style.overflow = "hidden";
@@ -55,7 +56,7 @@ function runPreloader() {
     pct += 1;
     percentEl.textContent = `${pct} %`;
 
-    /* highlight the relevant status line (5 steps → 20 % each) */
+    /* highlight the relevant status line (N steps → 100/N % each) */
     const idx = Math.min(
       steps.length - 1,
       Math.floor(pct / (100 / steps.length))
@@ -66,23 +67,18 @@ function runPreloader() {
       clearInterval(timer);
       finishPreloader();
     }
-  }, 35); // 55 ms × 100 ≈ 5.5 s
+  }, 35); // 35 ms × 100 ≈ 3.5 s
 
-  /* STEP 2 ▸ show welcome text, then fade overlay */
+  /* STEP 2 ▸ simply fade overlay; DO NOT overwrite caption text */
   function finishPreloader() {
-    captionEl.innerHTML =
-      "WELCOME TO MY WEBSITE 🚀 <br><br>HOPE YOU ENJOY IT AS MUCH AS I ENJOYED CREATING IT 💙";
-    captionEl.style.opacity = "1";
-    captionEl.style.fontWeight = "500";
-
-    /* keep overlay visible for 2 s, then fade */
+    // keep whatever is already in .load-caption from HTML
     setTimeout(() => {
       preloader.classList.add("fade-out");
       setTimeout(() => {
         preloader.style.display = "none";
         document.documentElement.style.overflow = ""; // re-enable scroll
       }, 450);
-    }, 2000);
+    }, 2000); // retain the 2s pause
   }
 }
 
