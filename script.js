@@ -1,0 +1,114 @@
+/* ─────────────────────────  GLOBAL SETUP  ───────────────────────── */
+window.addEventListener("load", () => {
+  // tidy up any stray #hash on refresh
+  history.replaceState({}, "", window.location.pathname);
+
+  runPreloader();
+
+  /* ───────── Force all buttons that navigate to open in a new tab ───────── */
+  const buttons = document.querySelectorAll("button");
+  buttons.forEach((btn) => {
+    const inline = btn.getAttribute("onclick");
+    if (!inline) return;
+
+    // Try to extract a URL from common inline patterns
+    // Pattern 1: location.href='URL'
+    let m = inline.match(/location\.href=['"]([^'"]+)['"]/);
+    // Pattern 2: window.open('URL' ...)
+    if (!m) m = inline.match(/window\.open\(['"]([^'"]+)['"]/);
+    if (!m) return; // nothing recognizable
+
+    const url = m[1];
+    // Remove original inline handler to avoid same-tab nav
+    btn.removeAttribute("onclick");
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  });
+});
+
+/* ─────────────────────────  BURGER MENU  ───────────────────────── */
+function toggleMenu() {
+  const menu = document.querySelector(".menu-links");
+  const icon = document.querySelector(".hamburger-icon");
+  menu.classList.toggle("open");
+  icon.classList.toggle("open");
+}
+
+/* ────────────────────────  INTRO SEQUENCE  ─────────────────────── */
+function runPreloader() {
+  /* DOM refs */
+  const preloader = document.getElementById("preloader");
+  const steps = Array.from(document.querySelectorAll("#load-steps li"));
+  const percentEl = document.getElementById("load-percent");
+  const captionEl = document.querySelector(".load-caption"); // kept, but not overwritten
+
+  // captionEl is optional now — don't require it to exist
+  if (!preloader || !percentEl) return; // markup missing
+
+  /* freeze scrolling while overlay is up */
+  document.documentElement.style.overflow = "hidden";
+
+  /* STEP 1 ▸ fake progress 0 → 100 % */
+  let pct = 0;
+  const timer = setInterval(() => {
+    pct += 1;
+    percentEl.textContent = `${pct} %`;
+
+    /* highlight the relevant status line (N steps → 100/N % each) */
+    const idx = Math.min(
+      steps.length - 1,
+      Math.floor(pct / (100 / steps.length))
+    );
+    steps.forEach((li, i) => li.classList.toggle("active", i === idx));
+
+    if (pct >= 100) {
+      clearInterval(timer);
+      finishPreloader();
+    }
+  }, 35); // 35 ms × 100 ≈ 3.5 s
+
+  /* STEP 2 ▸ simply fade overlay; DO NOT overwrite caption text */
+  function finishPreloader() {
+    // keep whatever is already in .load-caption from HTML
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+      setTimeout(() => {
+        preloader.style.display = "none";
+        document.documentElement.style.overflow = ""; // re-enable scroll
+      }, 450);
+    }, 2000); // retain the 2s pause
+  }
+}
+
+/* ───── Gentle anchor scrolling ───── */
+(function () {
+  const SCROLL_DURATION = 1200; // ← milliseconds
+  const EASE = (t) =>
+    t < 0.5 // ease-in-out quad
+      ? 2 * t * t
+      : -1 + (4 - 2 * t) * t;
+
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const id = anchor.getAttribute("href").slice(1);
+      const target = document.getElementById(id);
+      if (!target) return; // no match → bail
+
+      e.preventDefault(); // kill instant jump
+
+      const start = window.pageYOffset;
+      const end = target.getBoundingClientRect().top + start;
+      const dist = end - start;
+      const t0 = performance.now();
+
+      (function scroll(now) {
+        const elapsed = now - t0;
+        const progress = Math.min(1, elapsed / SCROLL_DURATION);
+        window.scrollTo(0, start + dist * EASE(progress));
+        if (progress < 1) requestAnimationFrame(scroll);
+      })(t0);
+    });
+  });
+})();
