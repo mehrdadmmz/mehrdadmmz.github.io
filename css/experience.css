@@ -1,0 +1,110 @@
+/* ═════════════════════  EXPERIENCE SECTION  ═════════════════════ */
+
+#experience {
+  position: relative;
+}
+
+#experience .arrow-link {
+  position: absolute;
+  right: 2rem;
+  bottom: 2.5rem;
+}
+
+#experience .about-containers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 2rem;
+}
+
+#experience .details-container {
+  padding: 1rem;
+  width: 95%;
+}
+
+#experience .details-container:last-child {
+  grid-column: 1 / -1;
+  justify-self: center;
+  max-width: 640px;
+}
+
+.experience-sub-title {
+  color: rgb(85, 85, 85);
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.experience-details-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.article-container {
+  display: flex;
+  text-align: initial;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 2.2rem;
+  justify-content: space-around;
+}
+
+.article-container article {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+article {
+  display: flex;
+  width: 10rem;
+  justify-content: space-around;
+  gap: 0.5rem;
+}
+
+article .icon {
+  cursor: default;
+}
+
+#experience article p {
+  display: none;
+}
+
+#experience article i {
+  font-size: 2.2rem;
+  margin-right: 0.4rem;
+  line-height: 1;
+}
+
+.article-container h3 {
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.skill-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-right: 0.4rem;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+.skill-icon:hover {
+  animation: wiggle 0.4s ease-in-out;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(6deg) translateY(-1px);
+  }
+  50% {
+    transform: rotate(-6deg) translateY(1px);
+  }
+  75% {
+    transform: rotate(3deg) translateY(-1px);
+  }
+}

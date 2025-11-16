@@ -1,0 +1,53 @@
+/* ═════════════════════  CONTACT SECTION  ═════════════════════ */
+
+#contact {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 70vh;
+}
+
+#contact a {
+  color: #f2f3ff;
+}
+
+#contact a:hover {
+  color: #ffffff;
+  text-decoration-color: #ffffff;
+}
+
+.contact-info-upper-container {
+  display: flex;
+  justify-content: center;
+  border-radius: 2rem;
+  border: rgb(53, 53, 53) 0.1rem solid;
+  border-color: rgb(163, 163, 163);
+  background: rgba(21, 26, 47, 0.85);
+  margin: 2rem auto;
+  padding: 0.5rem;
+}
+
+.contact-info-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1rem;
+}
+
+.contact-info-container p {
+  font-size: larger;
+  color: #f2f3ff;
+}
+
+.contact-info-container a {
+  color: #f2f3ff;
+}
+
+.contact-icon {
+  cursor: default;
+}
+
+.email-icon {
+  height: 2.5rem;
+}

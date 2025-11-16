@@ -1,0 +1,92 @@
+/* ═════════════════════  PROJECTS SECTION  ═════════════════════ */
+
+#projects {
+  position: relative;
+}
+
+#projects .arrow-link {
+  position: absolute;
+  right: 2rem;
+  bottom: 2.5rem;
+}
+
+#projects .about-containers {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#projects .details-container {
+  flex: 1 1 calc(33.333% - 2rem);
+  max-width: 350px;
+  position: relative;
+  overflow: visible;
+}
+
+.project-img {
+  border-radius: 2rem;
+  width: 90%;
+  height: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.project-title {
+  margin: 1rem;
+  color: #fafaff;
+}
+
+/* Info tooltip */
+.info-wrap {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+}
+
+.info-icon {
+  display: inline-block;
+  width: 1.4rem;
+  height: 1.4rem;
+  line-height: 1.4rem;
+  text-align: center;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.tooltip {
+  position: absolute;
+  top: 2.2rem;
+  left: 0;
+  min-width: 220px;
+  max-width: 260px;
+  padding: 0.9rem 1rem;
+  background: rgba(17, 24, 39, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  color: #f2f3ff;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transform: scale(0.7);
+  transform-origin: top left;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 3;
+}
+
+.info-wrap:hover .tooltip {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tech-icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-right: 0.25rem;
+  vertical-align: middle;
+  object-fit: contain;
+}

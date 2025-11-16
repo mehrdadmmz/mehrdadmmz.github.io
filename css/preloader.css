@@ -1,0 +1,119 @@
+/* ═════════════════════  PRELOADER OVERLAY  ═════════════════════ */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  background-color: #000;
+  background-image: radial-gradient(
+    rgba(59, 130, 246, 0.2) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  overflow: hidden;
+}
+
+.preloader::before {
+  content: "";
+  position: absolute;
+  inset: -40vmax;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  animation: moveSpot 20s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.preloader > * {
+  position: relative;
+  z-index: 1;
+}
+
+.preloader.fade-out,
+.welcome-splash.fade-out {
+  opacity: 0;
+}
+
+.load-steps {
+  list-style: none;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.load-steps li {
+  opacity: 0.15;
+  padding: 0.1rem 0.8rem;
+  border-radius: 4px;
+  transition: opacity 0.3s, box-shadow 0.3s;
+}
+
+.load-steps li.active {
+  opacity: 1;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8), 0 0 12px #3b82f6;
+  background: linear-gradient(
+    90deg,
+    #3b82f6 0%,
+    #6366f1 25%,
+    #a855f7 50%,
+    #ec4899 75%,
+    #f97316 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.load-percent {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.8rem;
+  letter-spacing: 0.1em;
+}
+
+.load-caption {
+  max-width: 640px;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  line-height: 1.5;
+  text-align: center;
+  opacity: 0.8;
+  padding: 0 1rem;
+  font-weight: 500;
+}
+
+/* Welcome splash */
+.welcome-splash {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+  transition: opacity 0.4s ease;
+}
+
+.welcome-splash.hidden {
+  display: none;
+}
+
+.welcome-splash h1 {
+  font-size: clamp(2rem, 6vw, 3.6rem);
+  text-align: center;
+  letter-spacing: 0.08em;
+  padding: 0 1rem;
+}

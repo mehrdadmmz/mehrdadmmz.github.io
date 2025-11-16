@@ -1,0 +1,48 @@
+/* ═════════════════════  ABOUT SECTION  ═════════════════════ */
+
+#about {
+  position: relative;
+}
+
+#about .arrow-link {
+  position: absolute;
+  right: 2rem;
+  bottom: 2.5rem;
+}
+
+#about .section-container {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+#about .details-container {
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+#about .text-container {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.about-containers {
+  gap: 2rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  display: flex;
+}
+
+.about-details-container {
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+}
+
+.about-pic {
+  border-radius: 50%;
+  box-shadow: none;
+  border: none;
+  object-fit: cover;
+}
