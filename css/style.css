@@ -1,0 +1,377 @@
+/* CSS Variables */
+:root {
+  --large-font-size: 6vw;
+  --small-font-size: 1.33333vw;
+  --header-font-family: "nbintl", sans-serif;
+  --body-font-family: "nbintl-mono", monospace;
+  --max-width: 1510px;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Animations */
+@keyframes pageFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* Base Styles */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  color: #111;
+}
+
+body {
+  font-family: var(--body-font-family);
+  font-size: 2.5vw;
+  line-height: 1.35em;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Typography */
+.big {
+  font-family: var(--header-font-family);
+  font-size: var(--large-font-size);
+  line-height: 1.3em;
+  letter-spacing: -0.015em;
+  font-weight: 500;
+  animation: pageFadeIn 2s;
+  animation-fill-mode: both;
+}
+
+.small {
+  font-size: var(--small-font-size);
+  line-height: 1.2em;
+  letter-spacing: 0.05em;
+  animation: pageFadeIn 1.2s;
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+/* Responsive Typography */
+@media (min-width: 1440px) {
+  .small {
+    font-size: 16px;
+    line-height: 1.3em;
+  }
+}
+
+@media (max-width: 760px) {
+  .big {
+    font-size: 10vw;
+    line-height: 1.2em;
+  }
+
+  .small {
+    font-size: 14px;
+    line-height: 1.4em;
+  }
+}
+
+@media (max-width: 480px) {
+  .big {
+    font-size: 11vw;
+  }
+}
+
+/* Layout - Header */
+header {
+  padding: 5vw 10vw 1vw;
+  max-width: var(--max-width);
+  height: 55vh;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 760px) {
+  header {
+    padding: 5vw;
+    height: auto;
+    min-height: 40vh;
+  }
+}
+
+/* Layout - Main */
+main {
+  padding: 1vw 10vw 2vw;
+  max-width: var(--max-width);
+}
+
+@media (max-width: 760px) {
+  main {
+    padding: 0 5vw 3vw;
+  }
+}
+
+/* Layout - Footer */
+footer {
+  padding: 1vw 10vw 2vw;
+  max-width: var(--max-width);
+}
+
+@media (max-width: 760px) {
+  footer {
+    padding: 0 5vw 3vw;
+  }
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: row;
+  text-transform: uppercase;
+  line-height: 1.5em;
+}
+
+.footer-content > div {
+  flex: 1 1;
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    flex-direction: column;
+  }
+  .footer-content > div {
+    margin-bottom: 1em;
+  }
+}
+
+/* Social Footer */
+.social-footer {
+  padding: 0 10vw 3vw;
+  max-width: var(--max-width);
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .social-footer {
+    padding: 0 5vw 3vw;
+  }
+}
+
+/* Links */
+a {
+  color: #111;
+  text-decoration: none;
+  border: 0;
+  transition: opacity 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+a:hover {
+  cursor: ne-resize;
+  opacity: 0.5;
+}
+
+/* Underline Effect */
+.underline {
+  position: relative;
+  white-space: nowrap;
+}
+
+.underline::after {
+  content: "";
+  position: absolute;
+  bottom: 0.05em;
+  right: 0;
+  left: 2px;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+@media (max-width: 760px) {
+  .underline::after {
+    height: 1.5px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .underline::after {
+    height: 4px;
+  }
+}
+
+/* Small Link Underlines */
+.small a {
+  position: relative;
+  white-space: nowrap;
+}
+
+.small a::after {
+  content: "";
+  position: absolute;
+  bottom: -0.1em;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: #111;
+  z-index: -1;
+  opacity: 0.4;
+}
+
+.small a:hover::after {
+  opacity: 0.7;
+}
+
+/* More Link */
+.more-link {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.more-link:hover {
+  opacity: 1;
+}
+
+.small a.more-link::after {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.small a.more-link:hover::after {
+  opacity: 0.7;
+}
+
+/* Lists */
+.h-list {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.h-list li {
+  margin-left: 0;
+  margin-right: 1.2vw;
+}
+
+@media (max-width: 480px) {
+  ul {
+    margin: 0;
+  }
+  .h-list li {
+    margin-right: 2vw;
+  }
+}
+
+.v-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
+}
+
+/* Utility Classes */
+.label {
+  margin: 0;
+}
+
+.status {
+  text-transform: uppercase;
+  animation: pageFadeIn 0.8s;
+  animation-fill-mode: both;
+}
+
+/* Selection */
+::selection {
+  background: #ffc800;
+  color: #111;
+  text-shadow: none;
+}
+
+/* Custom Cursor */
+body {
+  cursor: none;
+}
+
+a, button {
+  cursor: none;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #111;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transition: transform 0.15s ease-out;
+}
+
+.cursor-trail {
+  width: 4px;
+  height: 4px;
+  background-color: #111;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.5;
+}
+
+/* Terminal Typing Effect */
+.typing::after {
+  content: '|';
+  animation: blink 1s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background: #111;
+    color: #f0f0f0;
+  }
+
+  a,
+  a:hover {
+    color: #f0f0f0;
+  }
+
+  .underline::after {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .small a::after {
+    background: #fff;
+  }
+
+  .cursor-dot,
+  .cursor-trail {
+    background-color: #f0f0f0;
+  }
+}
