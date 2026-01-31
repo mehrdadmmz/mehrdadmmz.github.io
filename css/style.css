@@ -41,8 +41,8 @@ html,
 body {
   width: 100%;
   height: 100%;
-  background: #fff;
-  color: #111;
+  background: #111;
+  color: #f0f0f0;
 }
 
 body {
@@ -174,9 +174,26 @@ footer {
   }
 }
 
+.link-group {
+  margin-bottom: 1.5em;
+}
+
+.group-label {
+  opacity: 0.5;
+  margin-bottom: 0.5em;
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 760px) {
+  .link-group {
+    margin-bottom: 2em;
+  }
+}
+
 /* Links */
 a {
-  color: #111;
+  color: #f0f0f0;
   text-decoration: none;
   border: 0;
   transition: opacity 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -200,7 +217,7 @@ a:hover {
   right: 0;
   left: 2px;
   height: 3px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.4);
   z-index: -1;
 }
 
@@ -229,7 +246,7 @@ a:hover {
   right: 0;
   left: 0;
   height: 1px;
-  background: #111;
+  background: #fff;
   z-index: -1;
   opacity: 0.4;
 }
@@ -269,12 +286,25 @@ a:hover {
   margin-right: 1.2vw;
 }
 
+@media (max-width: 760px) {
+  .h-list {
+    flex-wrap: wrap;
+  }
+  .h-list li {
+    margin-bottom: 0.5em;
+  }
+}
+
 @media (max-width: 480px) {
   ul {
     margin: 0;
   }
+  .h-list {
+    flex-wrap: wrap;
+  }
   .h-list li {
     margin-right: 2vw;
+    margin-bottom: 0.5em;
   }
 }
 
@@ -298,7 +328,7 @@ a:hover {
 /* Selection */
 ::selection {
   background: #ffc800;
-  color: #111;
+  color: #000;
   text-shadow: none;
 }
 
@@ -314,7 +344,7 @@ a, button {
 .cursor-dot {
   width: 8px;
   height: 8px;
-  background-color: #111;
+  background-color: #f0f0f0;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -325,7 +355,7 @@ a, button {
 .cursor-trail {
   width: 4px;
   height: 4px;
-  background-color: #111;
+  background-color: #f0f0f0;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
@@ -349,29 +379,3 @@ a, button {
   }
 }
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  html,
-  body {
-    background: #111;
-    color: #f0f0f0;
-  }
-
-  a,
-  a:hover {
-    color: #f0f0f0;
-  }
-
-  .underline::after {
-    background: rgba(255, 255, 255, 0.4);
-  }
-
-  .small a::after {
-    background: #fff;
-  }
-
-  .cursor-dot,
-  .cursor-trail {
-    background-color: #f0f0f0;
-  }
-}
