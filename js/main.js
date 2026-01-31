@@ -119,3 +119,48 @@ if ('ontouchstart' in window) {
   `;
   document.head.appendChild(style);
 }
+
+// Theme Toggle
+const themeToggle = {
+  button: null,
+
+  init() {
+    this.button = document.getElementById('theme-toggle');
+    if (!this.button) return;
+
+    this.loadTheme();
+    this.button.addEventListener('click', () => this.toggle());
+  },
+
+  loadTheme() {
+    const saved = localStorage.getItem('theme');
+    const theme = saved || 'dark'; // Default to dark mode
+    this.setTheme(theme, false);
+  },
+
+  setTheme(theme, save = true) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (save) {
+      localStorage.setItem('theme', theme);
+    }
+    this.updateButton(theme);
+  },
+
+  toggle() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    this.setTheme(next);
+  },
+
+  updateButton(theme) {
+    // Show sun emoji in dark mode (click to go light)
+    // Show moon emoji in light mode (click to go dark)
+    this.button.textContent = theme === 'dark' ? '☀️' : '🌙';
+    this.button.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
+  }
+};
+
+// Initialize theme toggle
+document.addEventListener('DOMContentLoaded', () => {
+  themeToggle.init();
+});
