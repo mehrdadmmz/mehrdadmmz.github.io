@@ -181,13 +181,22 @@ footer {
 .group-label {
   opacity: 0.5;
   margin-bottom: 0.5em;
-  font-size: 0.85em;
   letter-spacing: 0.1em;
 }
 
 @media (max-width: 760px) {
   .link-group {
     margin-bottom: 2em;
+  }
+}
+
+/* Desktop Layout - Side by Side */
+@media (min-width: 761px) {
+  .footer-content,
+  .social-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4vw;
   }
 }
 
