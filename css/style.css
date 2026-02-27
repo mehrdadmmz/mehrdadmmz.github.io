@@ -56,6 +56,11 @@
   }
 }
 
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Base Styles */
 html,
 body {
@@ -125,7 +130,7 @@ body {
 header {
   padding: 5vw 10vw 1vw;
   max-width: var(--max-width);
-  height: 55vh;
+  height: 48vh;
   display: flex;
   align-items: center;
 }
@@ -140,7 +145,7 @@ header {
 
 /* Layout - Main */
 main {
-  padding: 1vw 10vw 2vw;
+  padding: 1vw 10vw 1.5vw;
   max-width: var(--max-width);
 }
 
@@ -152,7 +157,7 @@ main {
 
 /* Layout - Footer */
 footer {
-  padding: 1vw 10vw 2vw;
+  padding: 1vw 10vw 1.5vw;
   max-width: var(--max-width);
 }
 
@@ -184,7 +189,7 @@ footer {
 
 /* Social Footer */
 .social-footer {
-  padding: 0 10vw 3vw;
+  padding: 0 10vw 2vw;
   max-width: var(--max-width);
   text-transform: uppercase;
 }
@@ -355,6 +360,106 @@ a:hover {
   text-transform: uppercase;
   animation: pageFadeIn 0.8s;
   animation-fill-mode: both;
+}
+
+/* Pulsing green dot on Status line */
+.status-live::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #00ff88;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 6px 2px rgba(0, 255, 136, 0.2);
+  }
+}
+
+/* Section Dividers */
+.section-divider {
+  border: none;
+  height: 1px;
+  background: var(--text-color);
+  opacity: 0.1;
+  margin: 1vw 10vw;
+  max-width: calc(var(--max-width) - 20vw);
+}
+
+@media (max-width: 760px) {
+  .section-divider {
+    margin: 2vw 5vw;
+  }
+}
+
+/* Faded location text */
+.location {
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.v-list li:hover .location {
+  opacity: 0.7;
+}
+
+/* Staggered fade-in for work experience items */
+.v-list li {
+  opacity: 0;
+  animation: slideIn 0.6s ease forwards;
+  transition: transform 0.2s ease;
+}
+
+.v-list li:hover {
+  transform: translateY(-2px);
+}
+
+.v-list li:nth-child(1) { animation-delay: 0.6s; }
+.v-list li:nth-child(2) { animation-delay: 0.8s; }
+.v-list li:nth-child(3) { animation-delay: 1.0s; }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover scale on social/research emoji links */
+.h-list li a {
+  display: inline-block;
+  transition: opacity 0.4s cubic-bezier(0.075, 0.82, 0.165, 1), transform 0.2s ease;
+}
+
+.h-list li a:hover {
+  transform: scale(1.05);
+}
+
+/* Twemoji - cross-platform emoji rendering */
+img.emoji {
+  height: 1em;
+  width: 1em;
+  margin: 0 0.05em 0 0.1em;
+  vertical-align: -0.1em;
+  display: inline;
+}
+
+.big img.emoji {
+  height: 0.85em;
+  width: 0.85em;
 }
 
 /* Selection */
