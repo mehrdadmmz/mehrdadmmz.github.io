@@ -8,7 +8,9 @@ import {
 const root = document.documentElement;
 root.classList.remove("no-js");
 const intro = document.querySelector(".intro");
+const introScene = document.querySelector(".intro-sticky");
 const computerSection = document.querySelector(".computer-section");
+const computerScene = document.querySelector(".computer-sticky");
 const explore = document.querySelector("#explore-computer");
 const motionButton = document.querySelector(".motion-toggle");
 const mediaMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -102,9 +104,10 @@ const particleCanvas = document.querySelector(".robot-points");
 const particleCtx = particleCanvas.getContext("2d");
 let canvasSize = 0;
 let canvasRatio = 1;
-function prepareParticles() {
+async function prepareParticles() {
   if (!particleCtx || !robotImage.naturalWidth) return;
   try {
+    await robotImage.decode();
     const sample = document.createElement("canvas");
     sample.width = sample.height = 250;
     const ctx = sample.getContext("2d", { willReadFrequently: true });
@@ -115,7 +118,7 @@ function prepareParticles() {
       for (let x = 0; x < 250; x += 2) {
         const k = (y * 250 + x) * 4;
         const shade = (pixels[k] + pixels[k + 1] + pixels[k + 2]) / 3;
-        if (shade < 205)
+        if (pixels[k + 3] > 128 && shade < 205)
           points.push({
             x: x / 250,
             y: y / 250,
@@ -125,6 +128,7 @@ function prepareParticles() {
       }
     }
     particleData = points;
+    lastParticleKey = "";
     scheduleRender();
   } catch {
     // Preserve the original illustration if canvas sampling is unavailable.
@@ -225,18 +229,47 @@ blueprintButton.addEventListener("click", () => {
     : "+";
 });
 
+// A scene taller than the viewport scrolls up first, then pins at its bottom.
+// Measure the content instead of disabling the sequence at a device breakpoint.
+let computerTravel = 1;
+let computerPinTop = 0;
+function measureComputer() {
+  const sceneHeight = computerScene.offsetHeight;
+  computerPinTop = Math.min(0, innerHeight - sceneHeight);
+  computerTravel = Math.max(600, innerHeight * 1.3);
+  computerSection.style.setProperty(
+    "--computer-scene-height",
+    `${sceneHeight}px`,
+  );
+  computerSection.style.setProperty(
+    "--computer-pin-top",
+    `${computerPinTop}px`,
+  );
+  computerSection.style.setProperty("--computer-travel", `${computerTravel}px`);
+  scheduleRender();
+}
+new ResizeObserver(measureComputer).observe(computerScene);
+let introTravel = 1;
+let introPinTop = 0;
+function measureIntro() {
+  const sceneHeight = introScene.offsetHeight;
+  introPinTop = Math.min(0, innerHeight - sceneHeight);
+  introTravel = Math.max(500, innerHeight * 0.8);
+  intro.style.setProperty("--intro-scene-height", `${sceneHeight}px`);
+  intro.style.setProperty("--intro-pin-top", `${introPinTop}px`);
+  intro.style.setProperty("--intro-travel", `${introTravel}px`);
+  scheduleRender();
+}
+new ResizeObserver(measureIntro).observe(introScene);
+
 function render() {
   frame = null;
   const viewHeight = innerHeight;
   const introRect = intro.getBoundingClientRect();
-  const introDistance = intro.offsetHeight - viewHeight;
   const introProgress =
-    reduceMotion ||
-    getComputedStyle(document.querySelector(".intro-sticky")).position !==
-      "sticky" ||
-    introDistance <= 0
+    reduceMotion || getComputedStyle(introScene).position !== "sticky"
       ? 0
-      : smoothstep(clamp(-introRect.top / introDistance));
+      : smoothstep(clamp((introPinTop - introRect.top) / introTravel));
   root.style.setProperty("--intro", introProgress.toFixed(4));
   const detailVisible = introProgress > 0.42;
   const heroCopy = document.querySelector(".hero-copy");
@@ -261,12 +294,13 @@ function render() {
     computerPinned
   )
     manualOpen = null;
-  const computerDistance = computerSection.offsetHeight - viewHeight;
   const open =
     manualOpen ??
-    (reduceMotion || !computerPinned || computerDistance <= 0
+    (reduceMotion || !computerPinned
       ? 0
-      : smoothstep(clamp(-computerRect.top / computerDistance)));
+      : smoothstep(
+          clamp((computerPinTop - computerRect.top) / computerTravel),
+        ));
   setComputer(open);
   const pageDistance = root.scrollHeight - viewHeight;
   root.style.setProperty(
@@ -280,6 +314,8 @@ function scheduleRender() {
 function applyMotion() {
   root.classList.toggle("motion-reduced", reduceMotion);
   root.classList.toggle("motion-enabled", !reduceMotion);
+  measureComputer();
+  measureIntro();
   motionButton.setAttribute("aria-pressed", String(reduceMotion));
   motionButton.setAttribute(
     "aria-label",
@@ -313,6 +349,8 @@ mediaMotion.addEventListener("change", () => {
 });
 window.addEventListener("scroll", scheduleRender, { passive: true });
 window.addEventListener("resize", scheduleRender, { passive: true });
+window.addEventListener("resize", measureComputer, { passive: true });
+window.addEventListener("resize", measureIntro, { passive: true });
 window.addEventListener("pageshow", scheduleRender);
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden) scheduleRender();

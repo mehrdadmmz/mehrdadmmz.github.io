@@ -70,6 +70,11 @@ test("scroll reveals machine view and opens the computer", async ({ page }) => {
     return pixels;
   });
   expect(opaquePixels).toBeGreaterThan(200);
+  const cornerPixels = await page.locator(".robot-points").evaluate((el) => {
+    const data = el.getContext("2d").getImageData(0, 0, 20, 20).data;
+    return [...data].filter((value, i) => i % 4 === 3 && value > 0).length;
+  });
+  expect(cornerPixels).toBe(0);
   await settleScroll(page, "#curiosity", 0.9);
   await expect(page.locator(".computer-mode")).toContainText("INTERNALS");
   expect(
@@ -143,6 +148,54 @@ for (const [width, height] of [
     await page.setViewportSize({ width, height });
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
+    for (const [section, variable, artwork] of [
+      [".intro", "intro", ".robot-points"],
+      ["#curiosity", "computer", ".computer-svg"],
+    ]) {
+      for (const fraction of [0, 0.5, 0.95]) {
+        await page.evaluate(
+          ({ section, variable, fraction }) => {
+            const el = document.querySelector(section);
+            const style = getComputedStyle(el);
+            const pin = parseFloat(
+              style.getPropertyValue(`--${variable}-pin-top`),
+            );
+            const travel = parseFloat(
+              style.getPropertyValue(`--${variable}-travel`),
+            );
+            document.documentElement.style.scrollBehavior = "auto";
+            window.scrollTo(
+              0,
+              el.getBoundingClientRect().top +
+                scrollY -
+                pin +
+                travel * fraction,
+            );
+          },
+          { section, variable, fraction },
+        );
+        await expect
+          .poll(async () =>
+            page
+              .locator(section)
+              .evaluate(
+                (el, variable) =>
+                  parseFloat(
+                    getComputedStyle(el).getPropertyValue(
+                      variable === "intro" ? "--intro" : "--open",
+                    ),
+                  ),
+                variable,
+              ),
+          )
+          .toBeCloseTo(fraction * fraction * (3 - 2 * fraction), 1);
+        const box = await page.locator(artwork).boundingBox();
+        expect(box.y).toBeLessThan(height);
+        expect(box.y + box.height).toBeGreaterThan(0);
+      }
+    }
+    await expect(page.locator(".robot-image")).toHaveCSS("opacity", /0\.0/);
+    await expect(page.locator(".computer-mode")).toContainText("INTERNALS");
     for (const [selector, fraction] of [
       [".intro", 0],
       ["#work", 0],
@@ -223,7 +276,12 @@ test("reduced motion retains the content and manual computer controls", async ({
 test("copy email gives a truthful success message", async ({
   page,
   context,
+  browserName,
 }) => {
+  test.skip(
+    browserName === "webkit",
+    "WebKit does not expose clipboard permissions to Playwright.",
+  );
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/");
   await page.getByRole("button", { name: "COPY EMAIL" }).click();

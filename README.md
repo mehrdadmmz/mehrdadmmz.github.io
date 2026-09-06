@@ -29,7 +29,7 @@ Before publishing, set `og:image` in `index.html` to the absolute deployed URL o
 - `assets/illustrations/README.md`: asset provenance and the exact image-generation prompts.
 - `docs/learning-to-see-plan.md`: final design direction and implementation decisions.
 
-There are two main scroll sequences. The robot shifts from graphite to a stylized point representation. The retro computer opens into separate layers; its slider also works with keyboard input, and Blueprint view changes the illustration treatment. On short screens, the scenes use normal document flow and the computer stays manually explorable, avoiding clipped controls. Personal interests use accessible tabs. Essential biography, work and links remain available without JavaScript.
+There are two main scroll sequences. The robot shifts from graphite to a stylized point representation. The retro computer opens into separate layers; its slider also works with keyboard input, and Blueprint view changes the illustration treatment. Both animations remain active on short screens: each scene is measured, scrolls into view, and then pins for its animation. Reduced Motion uses static scenes and manual computer controls. Personal interests use accessible tabs. Essential biography, work and links remain available without JavaScript. Diagonal link arrows are inline SVGs, so mobile devices cannot substitute emoji glyphs.
 
 ## Verification
 
@@ -37,7 +37,7 @@ There are two main scroll sequences. The robot shifts from graphite to a stylize
 npm test
 ```
 
-The browser tests use an installed Google Chrome. Set `BROWSER_PATH` to a compatible Chromium executable if needed. Tests cover the scroll states, computer controls, interest tabs, 12 viewport sizes from 320px phones to 2560px desktops, touch controls after phone rotation, reduced-motion behavior, email copying, JavaScript-free content and automated WCAG accessibility checks. Automated checks complement visual review; they are not a complete accessibility certification.
+The browser tests use installed Google Chrome and Playwright WebKit (`npx playwright install webkit`). Set `BROWSER_PATH` to a compatible Chromium executable if needed. Tests verify both animations at assembled, intermediate, and completed scroll positions across 12 viewport sizes from 320px phones to 2560px desktops, plus computer controls, interest tabs, phone rotation, reduced-motion behavior, JavaScript-free content and automated WCAG accessibility checks. Clipboard permissions are tested in Chromium because Playwright WebKit does not expose them. Automated checks complement visual review; they are not a complete accessibility certification.
 
 The local inspection and identity export scripts in `scripts/` are development helpers. `create-identity.mjs` renders the favicon, touch icon and social image from the site's own artwork while the development server runs.
 

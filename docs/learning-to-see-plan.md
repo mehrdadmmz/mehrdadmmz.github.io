@@ -40,4 +40,4 @@ The final robot master and optimized JPEG live in `assets/illustrations/`; exact
 - [NeuroDriver](https://github.com/mehrdadmmz/NeuroDriver): neural-network drivers evolved through genetic algorithms in a 2D simulation.
 - [Instrument Serif source](https://github.com/google/fonts/tree/main/ofl/instrumentserif): self-hosted font under the included SIL Open Font License.
 
-The implementation is local and has not been deployed. Current refinements increase small typography, make the terminal fringe subtly stronger, and adapt sticky scenes to shorter screens. Twelve viewport sizes plus phone rotation and touch controls are included in browser checks.
+The redesign is deployed from GitHub main through the existing Vercel integration. Responsive refinements measure both scenes and retain scroll animation on short screens. Robot image decoding completes before canvas sampling, including in Safari. Diagonal arrows use SVG to avoid iOS emoji substitution. Twelve viewport sizes plus phone rotation and touch controls are checked in Chromium and WebKit.

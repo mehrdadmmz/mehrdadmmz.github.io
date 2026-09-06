@@ -2819,27 +2819,6 @@ html.motion-reduced {
   .intro-copy {
     min-height: 350px;
   }
-  .hero-copy {
-    opacity: 1;
-    transform: none;
-  }
-  .perception-copy {
-    display: none;
-  }
-  .robot-image {
-    opacity: 1;
-  }
-  .robot-points,
-  .robot-annotations {
-    display: none;
-  }
-  .robot-study,
-  .robot-image-wrap {
-    transform: none;
-  }
-  .robot-study figcaption {
-    opacity: 1;
-  }
   .computer-inner {
     height: auto;
     min-height: 780px;
@@ -2885,4 +2864,87 @@ html.motion-reduced {
     width: 100%;
     margin-left: 0;
   }
+}
+/* Keep the scroll sequence on laptops and phones, including short windows.
+   Tall content enters normally before the scene pins at its measured bottom. */
+@media screen {
+  .motion-enabled .intro {
+    height: calc(
+      var(--intro-scene-height, 100svh) + var(--intro-travel, 80svh)
+    );
+    min-height: 0;
+  }
+  .motion-enabled .intro-sticky {
+    position: sticky;
+    top: var(--intro-pin-top, 0px);
+  }
+  .motion-enabled .computer-section {
+    height: calc(
+      var(--computer-scene-height, 100svh) + var(--computer-travel, 130svh)
+    );
+    min-height: 0;
+  }
+  .motion-enabled .computer-sticky {
+    position: sticky;
+    top: var(--computer-pin-top, 0px);
+    height: auto;
+    min-height: 100svh;
+    overflow: clip;
+  }
+  .motion-enabled .computer-inner {
+    height: auto;
+    min-height: 100svh;
+  }
+  .motion-enabled .computer-topline {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    background: var(--case-bg);
+    color: var(--ink);
+  }
+}
+@media screen and (max-width: 760px) {
+  .motion-enabled .intro-sticky {
+    height: auto;
+    min-height: calc(100svh - 72px);
+  }
+  .motion-enabled .intro-grid {
+    height: auto;
+    min-height: calc(100svh - 137px);
+    padding-bottom: 25px;
+    grid-template-rows: auto auto;
+  }
+  .motion-enabled .intro-copy {
+    min-height: 320px;
+  }
+  .motion-enabled .robot-study {
+    width: min(72%, max(170px, calc(100svh - 485px)));
+  }
+  .drawing-index {
+    white-space: nowrap;
+  }
+  .motion-enabled .computer-inner {
+    min-height: max(820px, 100svh);
+  }
+}
+@media screen and (min-width: 761px) and (max-height: 500px) {
+  .motion-enabled .computer-figure {
+    align-self: end;
+    margin-bottom: 25px;
+  }
+  .motion-enabled .computer-svg {
+    max-height: calc(100svh - 145px);
+  }
+}
+.arrow-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
 }
