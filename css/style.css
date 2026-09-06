@@ -600,6 +600,12 @@ em {
   bottom: 0;
   font-size: 12px;
 }
+.paper-visual .math-notation {
+  font-family: "Times New Roman", "Liberation Serif", serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  bottom: -14px;
+}
 .wave-study {
   width: 100%;
 }
@@ -2304,9 +2310,6 @@ html.motion-reduced {
 .work-featured {
   padding-block: 49px;
 }
-.work-featured h3 {
-  font-size: clamp(42px, 4.4vw, 64px);
-}
 .work-featured h3 em {
   color: var(--green);
 }
@@ -2418,9 +2421,6 @@ html.motion-reduced {
   }
   .work-end .mono {
     font-size: 10px;
-  }
-  .work-featured h3 {
-    font-size: 43px;
   }
   .work-category {
     font-size: 10px;
@@ -2540,9 +2540,6 @@ html.motion-reduced {
   }
   .work-main h3 {
     font-size: 35px;
-  }
-  .work-featured h3 {
-    font-size: 42px;
   }
   .work-role {
     font-size: 14px;
