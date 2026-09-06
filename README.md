@@ -25,11 +25,15 @@ Before publishing, set `og:image` in `index.html` to the absolute deployed URL o
 - `index.html`: biography, experience, research, projects, navigation and links.
 - `js/main.js`: interest notes, scroll behavior, point drawing, motion preferences and controls.
 - `js/drawings.js`: original SVG computer layers, objects and place illustrations.
+- `js/desk.js`: original desk illustration, equipment descriptions, slider and item details.
+- `js/robot-points.json`: precomputed points from the robot illustration, avoiding inconsistent image sampling in WebKit.
 - `css/style.css`: layout, palette, typography, mobile adaptations and reduced-motion styles.
 - `assets/illustrations/README.md`: asset provenance and the exact image-generation prompts.
 - `docs/learning-to-see-plan.md`: final design direction and implementation decisions.
 
 There are two main scroll sequences. The robot shifts from graphite to a stylized point representation. The retro computer opens into separate layers; its slider also works with keyboard input, and Blueprint view changes the illustration treatment. Both animations remain active on short screens: each scene is measured, scrolls into view, and then pins for its animation. Reduced Motion uses static scenes and manual computer controls. Personal interests use accessible tabs. Essential biography, work and links remain available without JavaScript. Diagonal link arrows are inline SVGs, so mobile devices cannot substitute emoji glyphs.
+
+The desk study follows the interest tabs, before the setup and coursework links. Its manual slider gently separates the equipment. Select an object or its labelled button to see an enlarged drawing and description; selecting it again restores the full collection. All controls support keyboard input and reduced motion. Equipment references and illustration decisions are recorded in `docs/desk-study.md`.
 
 ## Verification
 
@@ -39,7 +43,11 @@ npm test
 
 The browser tests use installed Google Chrome and Playwright WebKit (`npx playwright install webkit`). Set `BROWSER_PATH` to a compatible Chromium executable if needed. Tests verify both animations at assembled, intermediate, and completed scroll positions across 12 viewport sizes from 320px phones to 2560px desktops, plus computer controls, interest tabs, phone rotation, reduced-motion behavior, JavaScript-free content and automated WCAG accessibility checks. Clipboard permissions are tested in Chromium because Playwright WebKit does not expose them. Automated checks complement visual review; they are not a complete accessibility certification.
 
+Tests build the site and launch Vite's production preview on port 5174, separately from the development server. Desk tests also check its slider, equipment details, keyboard access and responsive layout.
+
 The local inspection and identity export scripts in `scripts/` are development helpers. `create-identity.mjs` renders the favicon, touch icon and social image from the site's own artwork while the development server runs.
+
+If the robot artwork changes, run `node scripts/create-robot-points.mjs` with the development server on port 5173 to regenerate its point study.
 
 ## Content notes
 

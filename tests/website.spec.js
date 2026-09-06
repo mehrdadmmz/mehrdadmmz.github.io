@@ -61,15 +61,18 @@ test("scroll reveals machine view and opens the computer", async ({ page }) => {
     "aria-hidden",
     "false",
   );
-  const opaquePixels = await page.locator(".robot-points").evaluate((el) => {
-    const data = el
-      .getContext("2d")
-      .getImageData(0, 0, el.width, el.height).data;
-    let pixels = 0;
-    for (let i = 3; i < data.length; i += 4) if (data[i] > 0) pixels++;
-    return pixels;
-  });
-  expect(opaquePixels).toBeGreaterThan(200);
+  await expect
+    .poll(() =>
+      page.locator(".robot-points").evaluate((el) => {
+        const data = el
+          .getContext("2d")
+          .getImageData(0, 0, el.width, el.height).data;
+        let pixels = 0;
+        for (let i = 3; i < data.length; i += 4) if (data[i] > 0) pixels++;
+        return pixels;
+      }),
+    )
+    .toBeGreaterThan(200);
   const cornerPixels = await page.locator(".robot-points").evaluate((el) => {
     const data = el.getContext("2d").getImageData(0, 0, 20, 20).data;
     return [...data].filter((value, i) => i % 4 === 3 && value > 0).length;
@@ -87,7 +90,7 @@ test("computer responds to keyboard controls and blueprint switch", async ({
 }) => {
   await page.goto("/");
   await settleScroll(page, "#curiosity", 0.4);
-  const slider = page.getByRole("slider");
+  const slider = page.getByRole("slider", { name: "TAKE A LOOK INSIDE" });
   await slider.focus();
   await slider.press("End");
   await expect(slider).toHaveValue("100");
@@ -226,6 +229,7 @@ for (const [width, height] of [
 
 test("touch controls remain usable after rotating a phone", async ({
   browser,
+  baseURL,
 }) => {
   const context = await browser.newContext({
     viewport: { width: 390, height: 844 },
@@ -234,14 +238,16 @@ test("touch controls remain usable after rotating a phone", async ({
     deviceScaleFactor: 3,
   });
   const page = await context.newPage();
-  await page.goto("http://127.0.0.1:5173");
+  await page.goto(baseURL);
   await page.getByRole("tab", { name: "05 / FOOTBALL" }).tap();
   await expect(page.getByRole("tabpanel")).toContainText("Arsenal, always.");
   await page.getByRole("button", { name: "BLUEPRINT VIEW" }).tap();
   await expect(page.locator("#curiosity")).toHaveClass(/blueprint/);
-  await page.getByRole("slider").fill("100");
+  await page.getByRole("slider", { name: "TAKE A LOOK INSIDE" }).fill("100");
   await settleScroll(page, "#about");
-  await expect(page.getByRole("slider")).toHaveValue("100");
+  await expect(
+    page.getByRole("slider", { name: "TAKE A LOOK INSIDE" }),
+  ).toHaveValue("100");
   await page.setViewportSize({ width: 844, height: 390 });
   await page.getByRole("button", { name: "BLUEPRINT VIEW" }).tap();
   await expect(page.locator("#curiosity")).not.toHaveClass(/blueprint/);
@@ -262,7 +268,7 @@ test("reduced motion retains the content and manual computer controls", async ({
       .locator(".intro-sticky")
       .evaluate((el) => getComputedStyle(el).position),
   ).toBe("relative");
-  await page.getByRole("slider").fill("100");
+  await page.getByRole("slider", { name: "TAKE A LOOK INSIDE" }).fill("100");
   await expect(page.locator(".computer-mode")).toContainText("INTERNALS");
   await page.getByRole("button", { name: "Enable scroll animations" }).click();
   await expect(page.locator("html")).toHaveClass(/motion-enabled/);
@@ -295,10 +301,11 @@ test("copy email gives a truthful success message", async ({
 
 test("essential navigation and content remain usable without JavaScript", async ({
   browser,
+  baseURL,
 }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto("http://127.0.0.1:5173");
+  await page.goto(baseURL);
   await expect(
     page.getByRole("heading", { name: "Mehrdad.", exact: true }),
   ).toBeVisible();

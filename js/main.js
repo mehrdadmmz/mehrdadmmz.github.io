@@ -4,6 +4,8 @@ import {
   cityDrawings,
   projectDrawings,
 } from "./drawings.js";
+import { initDesk } from "./desk.js";
+import robotPoints from "./robot-points.json";
 
 const root = document.documentElement;
 root.classList.remove("no-js");
@@ -28,7 +30,7 @@ let manualOpen = null;
 let manualScrollY = 0;
 let frame = null;
 let currentStep = -1;
-let particleData = [];
+const particleData = robotPoints.map(([x, y, z, warm]) => ({ x, y, z, warm }));
 let lastParticleKey = "";
 
 // All artwork markup is authored locally, with no remote or user-supplied HTML.
@@ -43,6 +45,7 @@ document.querySelectorAll("[data-city]").forEach((el) => {
 document.querySelectorAll("[data-project-drawing]").forEach((el) => {
   el.innerHTML = projectDrawings[el.dataset.projectDrawing];
 });
+initDesk();
 
 const fringe = document.querySelector(".code-fringe");
 const phrases = [
@@ -99,47 +102,13 @@ for (let row = 0; row < 16; row++) {
   waveGroup.append(path);
 }
 
-const robotImage = document.querySelector(".robot-image");
+// Sample the source illustration at authoring time. Some WebKit versions
+// return empty pixels when sampling a loaded image during page initialization.
 const particleCanvas = document.querySelector(".robot-points");
 const particleCtx = particleCanvas.getContext("2d");
+if (!particleCtx) root.classList.add("no-particles");
 let canvasSize = 0;
 let canvasRatio = 1;
-async function prepareParticles() {
-  if (!particleCtx || !robotImage.naturalWidth) return;
-  try {
-    await robotImage.decode();
-    const sample = document.createElement("canvas");
-    sample.width = sample.height = 250;
-    const ctx = sample.getContext("2d", { willReadFrequently: true });
-    ctx.drawImage(robotImage, 0, 0, 250, 250);
-    const pixels = ctx.getImageData(0, 0, 250, 250).data;
-    const points = [];
-    for (let y = 0; y < 250; y += 2) {
-      for (let x = 0; x < 250; x += 2) {
-        const k = (y * 250 + x) * 4;
-        const shade = (pixels[k] + pixels[k + 1] + pixels[k + 2]) / 3;
-        if (pixels[k + 3] > 128 && shade < 205)
-          points.push({
-            x: x / 250,
-            y: y / 250,
-            z: (255 - shade) / 255,
-            warm: pixels[k] > pixels[k + 2] + 13,
-          });
-      }
-    }
-    particleData = points;
-    lastParticleKey = "";
-    scheduleRender();
-  } catch {
-    // Preserve the original illustration if canvas sampling is unavailable.
-    root.classList.add("no-particles");
-  }
-}
-if (robotImage.complete) prepareParticles();
-else robotImage.addEventListener("load", prepareParticles, { once: true });
-robotImage.addEventListener("error", () => root.classList.add("no-particles"), {
-  once: true,
-});
 
 function drawParticles(progress) {
   if (!particleCtx || !particleData.length || reduceMotion || progress < 0.01)

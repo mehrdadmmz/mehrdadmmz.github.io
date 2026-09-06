@@ -2945,3 +2945,285 @@ html.motion-reduced {
   stroke-linejoin: round;
   flex-shrink: 0;
 }
+
+/* The everyday desk: a manually explored companion to the computer study. */
+.desk-explorer {
+  --desk-open: 0;
+  margin-top: 72px;
+  padding-top: 42px;
+  border-top: 1px solid var(--line);
+}
+.desk-heading-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 45px;
+  align-items: end;
+}
+.desk-heading-row .eyebrow {
+  font-size: 11px;
+  margin-bottom: 20px;
+}
+.desk-heading-row h3 {
+  font: 52px/1.05 var(--serif);
+  letter-spacing: -1px;
+}
+.desk-heading-row h3 em {
+  color: var(--green);
+}
+.desk-intro {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 370px;
+  line-height: 1.8;
+}
+.desk-stage {
+  margin-top: 34px;
+  background: #eae7dc;
+  border: 1px solid #d1d0c2;
+  padding: 20px 28px 24px;
+  --case-bg: #eae7dc;
+}
+.desk-stage-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+.desk-figure {
+  margin: 0;
+}
+.desk-svg {
+  width: 100%;
+  height: auto;
+  max-height: 590px;
+  display: block;
+  color: #46513e;
+}
+.desk-object {
+  transform: translate(
+    calc(var(--desk-open) * var(--desk-dx)),
+    calc(var(--desk-open) * var(--desk-dy))
+  );
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.desk-object > * {
+  pointer-events: visiblePainted;
+}
+.desk-illustration.has-selection .desk-object:not(.is-selected) {
+  opacity: 0.34;
+}
+.desk-object.is-selected {
+  color: var(--accent);
+}
+.desk-object.is-selected .desk-badge {
+  opacity: 1;
+}
+.desk-object.is-selected .desk-badge circle {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+.desk-object.is-selected .desk-badge text {
+  fill: var(--paper);
+}
+.desk-badge {
+  opacity: clamp(0, calc(var(--desk-open) * 2 - 0.2), 1);
+}
+.desk-badge circle {
+  fill: #eae7dc;
+  stroke-width: 1;
+}
+.desk-badge text {
+  text-anchor: middle;
+  font: 10px var(--mono);
+  fill: currentColor;
+  stroke: none;
+}
+.desk-construction {
+  opacity: calc(0.06 + var(--desk-open) * 0.2);
+}
+.desk-cables {
+  opacity: calc(1 - var(--desk-open) * 0.65);
+}
+.desk-annotation {
+  opacity: calc(0.25 + var(--desk-open) * 0.65);
+  color: var(--green);
+}
+.desk-light-beam {
+  opacity: calc(1 - var(--desk-open));
+  pointer-events: none;
+}
+.desk-figure figcaption {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0 auto 25px;
+}
+.desk-controls {
+  max-width: 430px;
+  margin: 0 auto;
+}
+.desk-controls label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+.desk-controls input {
+  height: 32px;
+  margin: 8px 0;
+}
+.desk-controls .range-labels {
+  font-size: 10px;
+}
+.desk-items {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 19px;
+  row-gap: 4px;
+  padding: 21px 0;
+  border-bottom: 1px solid var(--line);
+}
+.desk-items button {
+  min-height: 44px;
+  font-size: 13px;
+  padding: 5px 0;
+  border-bottom: 1px solid transparent;
+}
+.desk-items button .mono {
+  font-size: 10px;
+  margin-right: 4px;
+  color: var(--muted);
+}
+.desk-items button[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.desk-detail {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 35px;
+  padding: 25px 0 10px;
+  min-height: 155px;
+}
+.desk-selection-number {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.desk-item-title {
+  font: 30px/1.15 var(--serif);
+  font-weight: 400;
+  margin: 0;
+}
+.desk-item-note {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 460px;
+}
+.desk-detail-preview {
+  display: none;
+}
+.desk-item-selected .desk-detail {
+  grid-template-columns: 145px 1fr 1.1fr;
+}
+.desk-item-selected .desk-detail-preview {
+  display: flex;
+  align-items: center;
+}
+.desk-detail-preview svg {
+  width: 100%;
+  height: 115px;
+  fill: none;
+  stroke: #46513e;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.desk-fallback {
+  margin-top: 24px;
+  color: var(--muted);
+}
+.no-js .desk-stage,
+.no-js .desk-items,
+.no-js .desk-detail {
+  display: none;
+}
+@media (max-width: 760px) {
+  .desk-explorer {
+    margin-top: 40px;
+    padding-top: 30px;
+  }
+  .desk-heading-row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .desk-heading-row h3 {
+    font-size: 42px;
+  }
+  .desk-heading-row .eyebrow {
+    font-size: 10px;
+    margin-bottom: 15px;
+  }
+  .desk-intro {
+    font-size: 14px;
+  }
+  .desk-stage {
+    margin: 24px -8px 0;
+    padding: 17px 12px 20px;
+  }
+  .desk-stage-top {
+    font-size: 8px;
+    letter-spacing: 0.2px;
+  }
+  .desk-view-label {
+    text-align: right;
+  }
+  .desk-svg {
+    margin: 12px -5px 0;
+    width: calc(100% + 10px);
+  }
+  .desk-figure figcaption {
+    font-size: 11px;
+    max-width: 280px;
+    margin-bottom: 20px;
+  }
+  .desk-controls label {
+    font-size: 10px;
+  }
+  .desk-items {
+    gap: 2px 16px;
+  }
+  .desk-items button {
+    font-size: 12px;
+  }
+  .desk-detail {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    min-height: 205px;
+    padding-top: 23px;
+  }
+  .desk-item-title {
+    font-size: 28px;
+  }
+  .desk-item-note {
+    font-size: 13px;
+  }
+  .desk-item-selected .desk-detail {
+    grid-template-columns: 95px 1fr;
+    column-gap: 18px;
+  }
+  .desk-item-selected .desk-item-note {
+    grid-column: 1/-1;
+  }
+  .desk-detail-preview svg {
+    height: 90px;
+  }
+}
